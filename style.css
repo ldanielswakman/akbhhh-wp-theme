@@ -614,10 +614,11 @@ header #menu a [class^="icon-"]:before {
 	bottom: 110%;
 	left: 50%;
 	display: none;
-	width: 200px;
-	margin-left: -100px;
+	width: 300px;
+	margin-left: -150px;
 	color: #0e75bc;
 	text-align: center;
+	white-space: nowrap;
 }
 #map .marker:hover label,
 #map .marker:focus label {
@@ -774,13 +775,15 @@ header #menu a [class^="icon-"]:before {
 	margin-top: -50px;
 }
 .single-project #archived_message .box {
+	position: relative;
 	padding: 30px;
-	margin-bottom: 30px;
+	/*margin-bottom: 30px;*/
 	background-color: #789;
 	color: #fff;
 	font-style: italic;
 	font-weight: bold;
 	text-align: center;
+	z-index: 2;
 }
 .single-project #intro + section {
 	margin-top: -50px;
