@@ -123,9 +123,9 @@
 			<?php while ($archive_query->have_posts()) : $archive_query->the_post(); ?>
 				<?php
 				$i = $project_query->current_post;
-				$tile_data[$i] = simple_fields_fieldgroup("project_on_homepage", get_the_id());
-				if($tile_data[$i]["tile_image"]) { $image_src = wp_get_attachment_image_src($tile_data[$i]["tile_image"], 'medium'); $tile_data[$i]["tile_image"] = $image_src[0]; }
-				if(!$tile_data[$i]["tile_title"]) { $tile_data[$i]["tile_title"] = get_the_title(); }
+				$tile_archive_data[$i] = simple_fields_fieldgroup("project_on_homepage", get_the_id());
+				if($tile_archive_data[$i]["tile_image"]) { $image_src = wp_get_attachment_image_src($tile_archive_data[$i]["tile_image"], 'medium'); $tile_archive_data[$i]["tile_image"] = $image_src[0]; }
+				if(!$tile_archive_data[$i]["tile_title"]) { $tile_archive_data[$i]["tile_title"] = get_the_title(); }
 				?>
 
 				<div class="col-md-3 col-sm-4 col-xs-6 archived-project">
@@ -134,13 +134,13 @@
 					echo '<a href="';
 					echo get_post_permalink(get_the_id(), false, true);
 					echo '" id="project1" class="tile"';
-					if (!empty($tile_data[$i]["tile_image"])) :
+					if (!empty($tile_archive_data[$i]["tile_image"])) :
 						echo ' style="background-image: url(\'';
-						echo $tile_data[$i]["tile_image"];
+						echo $tile_archive_data[$i]["tile_image"];
 						echo '\');"';
 					endif;
 					echo '><span class="title">';
-					echo $tile_data[$i]["tile_title"];
+					echo $tile_archive_data[$i]["tile_title"];
 					echo '</span></a>';
 					?>
 
