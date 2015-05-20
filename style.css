@@ -617,6 +617,7 @@ header #menu a [class^="icon-"]:before {
 	width: 300px;
 	margin-left: -150px;
 	color: #0e75bc;
+	font-weight: bold;
 	text-align: center;
 	white-space: nowrap;
 	-webkit-box-sizing: border-box;
