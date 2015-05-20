@@ -609,20 +609,26 @@ header #menu a [class^="icon-"]:before {
 #map .marker:focus:after {
 	border-top-color: #0e75bc;
 }
-#map .marker label {
+#map .marker .text {
 	position: absolute;
 	bottom: 110%;
 	left: 50%;
-	display: none;
+	display: block;
 	width: 300px;
 	margin-left: -150px;
 	color: #0e75bc;
 	text-align: center;
 	white-space: nowrap;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	visibility: hidden;
+	opacity: 0;
 }
-#map .marker:hover label,
-#map .marker:focus label {
-	display: block;
+#map .marker:hover .text,
+#map .marker:focus .text {
+	visibility: visible;
+	opacity: 1;
 }
 
 

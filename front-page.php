@@ -193,7 +193,16 @@
 		// displaying a map marker if the project data has coordinates
 		foreach($tile_data as $key => $project):
 			if(!empty($project['coord_x']) && !empty($project['coord_y'])):
-				echo '<a href="' . $project['tile_url'] . '" class="marker" id="marker' . ($key+1) . '" style="bottom: ' . (100-$project['coord_y']) . '%; left: ' . $project['coord_x'] . '%;"><label>' . $project['tile_title'] . '</label></a>';
+				echo '<a href="' . $project['tile_url'] . 
+					'" class="marker" id="marker' . 
+					($key+1) . 
+					'" style="bottom: ' . 
+					(100-$project['coord_y']) . 
+					'%; left: ' . 
+					$project['coord_x'] . 
+					'%;">';
+				echo '<span class="text">' . $project['tile_title'] . '</span>';
+				echo '</a>';
 			endif;
 		endforeach;
 		?>
