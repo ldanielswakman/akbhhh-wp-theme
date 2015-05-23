@@ -32,8 +32,8 @@
 
 	// tile map: storing non-archived projects in tile array
 	$tile_data = [];
-	foreach ($projects as $key => $project) {
-		if ($project['archived'] != '1') {
+	foreach ($projects as $key => $project) :
+		if ($project['archived'] != '1') :
 			$tile_data[]["a"] = '
 			<a href="' .
 			$project["url"] .
@@ -44,8 +44,8 @@
 			');"><span class="title">' .
 			$project["tile_title"] .
 			'</span></a>';
-		}
-	}
+		endif;
+	endforeach;
 	?>
 
 	<section id="intro">
@@ -93,9 +93,9 @@
 	<?php
 	// only show section if archived projects exist
 	$has_archived = false;
-	foreach ($projects as $project) {
+	foreach ($projects as $project) :
 		if ($project['archived'] == '1') { $has_archived = true; }
-	}
+	endforeach;
 	if ($has_archived == true) :
 	?>
 	<section id="archive">

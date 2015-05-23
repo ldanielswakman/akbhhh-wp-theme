@@ -65,7 +65,8 @@ while ( have_posts() ) : the_post(); ?>
 	</section>
 
 	<?php
-	if(get_post_status() == 'pending') :
+	$project_home_data = simple_fields_fieldgroup("project_on_homepage", get_the_id());
+	if($project_home_data['archived'] == '1') :
 	?>
 	<section id="archived_message">
 		<div class="row container-fluid">
