@@ -9,10 +9,6 @@
 <div id="content">
 
 	<?php
-	// creating an 'empty' array for predefined amount of tiles
-	$n_tiles = 6;
-	$tile_data = array_fill(0, $n_tiles, array('tile_title' => '', 'tile_image' => '', 'tile_url' => '#'));
-
 	// looping through projects and outputting overview data into $tile_data
 	$args = array(
 		'post_type' => 'project',
@@ -20,43 +16,36 @@
 		'order' => 'DESC'
 	);
 	$project_query = new WP_Query($args);
+
+	// forming an array of post data
+	$projects = [];
 	while ($project_query->have_posts()) : $project_query->the_post();
 		$i = $project_query->current_post;
-
-		// storing 'project on homepage' from simple fields into tile array
-		$tile_data[$i] = simple_fields_fieldgroup("project_on_homepage", get_the_id());
-
-		// set the page default title if none is entered specifically
-		if(!$tile_data[$i]["tile_title"]) {
-			$tile_data[$i]["tile_title"] = get_the_title();
+		$projects[$i] = simple_fields_fieldgroup("project_on_homepage", get_the_id());
+		$projects[$i]['id'] = get_the_id();
+		$projects[$i]['url'] = get_the_permalink();
+		if(empty($projects[$i]['tile_title'])) {
+			$projects[$i]['tile_title'] = get_the_title();
 		}
-
-		// set cover image if present
-		if($tile_data[$i]["tile_image"]) {
-			$image_src = wp_get_attachment_image_src($tile_data[$i]["tile_image"], 'medium');
-			$tile_data[$i]["tile_image"] = $image_src[0];
-		}
-
-		// set url
-		$tile_data[$i]["tile_url"] = get_permalink();
 	endwhile;
 	wp_reset_postdata();
 
-	//looping through tile array and creating link tag from data
-	foreach($tile_data as $key => $tile) :
-
-		$tile_data[$key]["a"] = '
-		<a href="' .
-		$tile_data[$key]["tile_url"] .
-		'" id="project' .
-		($key+1) .
-		'" class="tile" style="background-image: url(' .
-		$tile_data[$key]["tile_image"] .
-		');"><span class="title">' .
-		$tile_data[$key]["tile_title"] .
-		'</span></a>';
-
-	endforeach;
+	// tile map: storing non-archived projects in tile array
+	$tile_data = [];
+	foreach ($projects as $key => $project) {
+		if ($project['archived'] != '1') {
+			$tile_data[]["a"] = '
+			<a href="' .
+			$project["url"] .
+			'" id="project' .
+			($key+1) .
+			'" class="tile" style="background-image: url(' .
+			wp_get_attachment_image_src($project["tile_image"], 'medium')[0] .
+			');"><span class="title">' .
+			$project["tile_title"] .
+			'</span></a>';
+		}
+	}
 	?>
 
 	<section id="intro">
@@ -88,10 +77,10 @@
 						</div>
 						<div class="section2-2 tile-container">
 							<?php echo $tile_data[2]['a']; ?>
-							<?php echo $tile_data[4]['a']; ?>
+							<?php echo $tile_data[5]['a']; ?>
 						</div>
 						<div class="section2-3 tile-container">
-							<?php echo $tile_data[5]['a']; ?>
+							<?php echo $tile_data[4]['a']; ?>
 						</div>
 					</div>
 				</div>
@@ -102,14 +91,12 @@
 	</section>
 
 	<?php
-	// Archived: list projects that have been archived
-	$args = array(
-		'post_type' => 'project',
-		'post_status' => 'pending',
-		'order' => 'DESC'
-	);
-	$archive_query = new WP_Query($args);
-	if($archive_query->have_posts()) :
+	// only show section if archived projects exist
+	$has_archived = false;
+	foreach ($projects as $project) {
+		if ($project['archived'] == '1') { $has_archived = true; }
+	}
+	if ($has_archived == true) :
 	?>
 	<section id="archive">
 		<?php if($frontpage_data['archive_title']) : ?>
@@ -120,35 +107,40 @@
 		</div>
 		<?php endif; ?>
 		<div class="row container-fluid">
-			<?php while ($archive_query->have_posts()) : $archive_query->the_post(); ?>
-				<?php
-				$i = $project_query->current_post;
-				$tile_archive_data[$i] = simple_fields_fieldgroup("project_on_homepage", get_the_id());
-				if($tile_archive_data[$i]["tile_image"]) { $image_src = wp_get_attachment_image_src($tile_archive_data[$i]["tile_image"], 'medium'); $tile_archive_data[$i]["tile_image"] = $image_src[0]; }
-				if(!$tile_archive_data[$i]["tile_title"]) { $tile_archive_data[$i]["tile_title"] = get_the_title(); }
+
+			<?php
+			// outputting archived projects (if any)
+			foreach ($projects as $key => $project) :
+				if ($project['archived'] == '1') :
 				?>
 
-				<div class="col-md-3 col-sm-4 col-xs-6 archived-project">
-					<?php
-					// element to be standardized: outputs anchor tile with background image if present
-					echo '<a href="';
-					echo get_post_permalink(get_the_id(), false, true);
-					echo '" id="project1" class="tile"';
-					if (!empty($tile_archive_data[$i]["tile_image"])) :
-						echo ' style="background-image: url(\'';
-						echo $tile_archive_data[$i]["tile_image"];
-						echo '\');"';
-					endif;
-					echo '><span class="title">';
-					echo $tile_archive_data[$i]["tile_title"];
-					echo '</span></a>';
-					?>
+					<div class="col-md-3 col-sm-4 col-xs-6 archived-project">
+						<?php
+						echo '<a href="';
+						echo $project['url'];
+						echo '" id="project1" class="tile"';
+						if (!empty($project["tile_image"])) :
+							echo ' style="background-image: url(\'';
+							echo wp_get_attachment_image_src($project["tile_image"], 'medium')[0];
+							echo '\');"';
+						endif;
+						echo '><span class="title">';
+						echo $project['tile_title'];
+						echo '</span>';
+						echo '</a>';
+						?>
+					</div>
 
-				</div>
-			<?php endwhile; ?>
+				<?php
+				endif;
+			endforeach;
+			?>
+
 		</div>
 	</section>
-	<?php endif; ?>
+	<?php 
+	endif;
+	?>
 
 	<?php
 	// retrieving posts and outputting news_preview section if there are posts to display
@@ -191,9 +183,9 @@
 		<img src="<?php bloginfo( 'template_directory' ); ?>/images/map.jpg" alt="" />
 		<?php
 		// displaying a map marker if the project data has coordinates
-		foreach($tile_data as $key => $project):
-			if(!empty($project['coord_x']) && !empty($project['coord_y'])):
-				echo '<a href="' . $project['tile_url'] . 
+		foreach($projects as $key => $project):
+			if($project['archived'] != '1' && !empty($project['coord_x']) && !empty($project['coord_y'])):
+				echo '<a href="' . $project['url'] . 
 					'" class="marker" id="marker' . 
 					($key+1) . 
 					'" style="bottom: ' . 
