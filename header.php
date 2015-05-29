@@ -20,7 +20,7 @@
 			?>
 		</title>
 
-		<meta name="description" content="" />
+		<meta name="description" content="Stichting AKBHHH is in 2006 opgericht vanuit het idee in bescheidenheid bij te dragen aan het grotere geheel. Vandaar de naam 'Alle Kleine Beetjes Helpen'." />
 		<meta name="keywords" content="" />
 		<meta name="author" content="L Daniel Swakman, www.ldaniel.eu" />
 		<meta charset="utf-8" />
