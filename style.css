@@ -819,11 +819,31 @@ header #menu a [class^="icon-"]:before {
 	padding-top: 0;
 }
 .single-project .box-image {
+	position: relative;
 	padding: 0;
 	text-align: center;
+	overflow: hidden;
 }
 .single-project .box-image.logo {
 	padding: 50px;
+}
+.single-project .box-image .descr {
+	position: absolute;
+	bottom: -31px;
+	left: 0;
+	display: block;
+	width: 100%;
+	padding: 5px 10px;
+	background-color: #fff;
+	font-size: 0.9em;
+	color: #fff;
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
+.single-project .box-image:hover .descr {
+	bottom: -1px;
+	color: #ceced9;
 }
 .single-project .ambassador-image {
 	display: inline-block;

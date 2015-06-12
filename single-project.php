@@ -52,12 +52,7 @@ while ( have_posts() ) : the_post(); ?>
 						<?php if($story_data && $ambassador_data['text']) : // same-page anchor only present if story is in between and ambassador story present ?>
 							<a href="#vaandeldrager" class="action action-light action-readmore" style="float: right; margin-top: -3px;">lees meer</a>
 						<?php endif; ?>
-						<p>
-							<?php if($ambassador_data['name']) : ?>
-								<strong><?php echo $ambassador_data['name']; ?></strong> -
-							<?php endif; ?>
-							<em><?php echo $project_hero_data['ambassador_intro']; ?></em>
-						</p>
+						<p><em>&mdash; <?php echo $project_hero_data['ambassador_intro']; ?></em></p>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -98,6 +93,9 @@ while ( have_posts() ) : the_post(); ?>
 			<div title="<?php echo $image_descr; ?>" class="col-md-5 box-image<?php echo ($image_is_logo) ? ' logo' : ''; echo ($image_aligned_right) ? ' col-md-push-7' : ''; ?>">
 				<?php $image_src = wp_get_attachment_image_src($section['section_image'], 'large'); ?>
 				<img src="<?php echo $image_src[0]; ?>" alt="" />
+				<?php if (strlen($image_descr) > 0) : ?>
+					<span class="descr"><?php echo $image_descr ?></span>
+				<?php endif; ?>
 			</div>
 			<div class="col-md-<?php echo $textcol; echo ($image_aligned_right) ? ' col-md-pull-5' : ''; ?> box">
 				<?php if($key == 0) : ?>
