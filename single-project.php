@@ -52,7 +52,7 @@ while ( have_posts() ) : the_post(); ?>
 						<?php if($story_data && $ambassador_data['text']) : // same-page anchor only present if story is in between and ambassador story present ?>
 							<a href="#vaandeldrager" class="action action-light action-readmore" style="float: right; margin-top: -3px;">lees meer</a>
 						<?php endif; ?>
-						<p><em>&mdash; <?php echo $project_hero_data['ambassador_intro']; ?></em></p>
+						<p><em><?php echo $project_hero_data['ambassador_intro']; ?></em></p>
 					<?php endif; ?>
 				</div>
 			</div>
