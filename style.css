@@ -664,18 +664,10 @@ header #menu a [class^="icon-"]:before {
 	padding: 5px;
 	background-color: #d9d4ce;
 	background-size: cover;
-	background-position: center center;
+	background-position: center 25%;
 	font-size: 1.2em;
 	font-weight: bold;
 	color: #fff;
-}
-#archive .tile .title {
-	background-color: rgba(174, 174, 192, 0.5); /* aeaec0 */
-	color: #fff;
-}
-#archive .tile:hover .title,
-#archive .tile:focus .title {
-	background-color: rgba(174, 174, 192, 0.8); /* aeaec0 */
 }
 
 
