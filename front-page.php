@@ -40,7 +40,7 @@
 			'" id="project' .
 			($key+1) .
 			'" class="tile" style="background-image: url(' .
-			wp_get_attachment_image_src($project["tile_image"], 'medium')[0] .
+			wp_get_attachment_image_src($project["tile_image"], 'medium_large')[0] .
 			');"><span class="title">' .
 			$project["tile_title"] .
 			'</span></a>';
@@ -48,45 +48,23 @@
 	endforeach;
 	?>
 
-	<section id="intro">
-		<div class="row container-fluid">
-			<div class="col-md-10 col-md-offset-1">
-				<div id="tilemap" class="tilemap">
-					<div class="section1">
-						<div class="section1-1 tile-container">
-							<?php echo $tile_data[0]['a']; ?>
-						</div>
-						<div class="section1-2 tile-container">
-							<?php echo $tile_data[1]['a']; ?>
-							<div id="intro" class="tile">
-								<?php
-								$frontpage_data = simple_fields_fieldgroup("front_page_data", get_the_id());
-								?>
-								<div class="tagline">
-									<?php echo $frontpage_data['tilemap_tagline']; ?>
-								</div>
-								<div class="descr">
-									<?php echo $frontpage_data['tilemap_descr']; ?>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="section2">
-						<div class="section2-1 tile-container">
-							<?php echo $tile_data[3]['a']; ?>
-						</div>
-						<div class="section2-2 tile-container">
-							<?php echo $tile_data[2]['a']; ?>
-							<?php echo $tile_data[5]['a']; ?>
-						</div>
-						<div class="section2-3 tile-container">
-							<?php echo $tile_data[4]['a']; ?>
-						</div>
-					</div>
-				</div>
+	<section class="tile-mosaic-section">
+		<div class="
+			tile-mosaic
+			<?= (count($tile_data) < 7) ? 'tile-mosaic--compact' : '' ?>
+			<?= (count($tile_data) === 7) ? 'tile-mosaic--medium' : '' ?>
+			">
+
+			<div class="title" id="intro">
+				<? $frontpage_data = simple_fields_fieldgroup("front_page_data", get_the_id()) ?>
+				<div class="tagline"><?= $frontpage_data['tilemap_tagline'] ?></div>
+				<div class="descr"><?= $frontpage_data['tilemap_descr'] ?></div>
 			</div>
-			<div class="span2">
-			</div>
+
+			<?php foreach($tile_data as $key => $tile) : ?>
+				<?= $tile['a'] ?>
+			<? endforeach ?>
+
 		</div>
 	</section>
 
