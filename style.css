@@ -545,6 +545,7 @@ header #menu a [class^="icon-"]:before {
 .tile-mosaic > *:nth-child(10) {
   grid-column: 4 / 6;
   grid-row: 1 / 2;
+  margin-right: 2rem;
 }
 
 /* Project 10 */
