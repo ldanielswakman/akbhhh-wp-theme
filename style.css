@@ -694,6 +694,17 @@ header #menu a [class^="icon-"]:before {
 	visibility: hidden;
 	opacity: 0;
 }
+#map .marker.marker-left .text {
+	left: 0;
+	margin-left: 0;
+	width: auto;
+}
+#map .marker.marker-right .text {
+	left: auto;
+	margin-left: auto;
+	right: 0;
+	width: auto;
+}
 #map .marker:hover .text,
 #map .marker:focus .text {
 	visibility: visible;

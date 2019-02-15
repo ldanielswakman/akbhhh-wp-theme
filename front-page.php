@@ -164,16 +164,20 @@
 		// displaying a map marker if the project data has coordinates
 		foreach($projects as $key => $project):
 			if($project['archived'] != '1' && !empty($project['coord_x']) && !empty($project['coord_y'])):
-				echo '<a href="' . $project['url'] . 
-					'" class="marker" id="marker' . 
-					($key+1) . 
-					'" style="bottom: ' . 
-					(100-$project['coord_y']) . 
-					'%; left: ' . 
-					$project['coord_x'] . 
-					'%;">';
-				echo '<span class="text">' . $project['tile_title'] . '</span>';
-				echo '</a>';
+				$marker = "";
+				$marker .= '<a href="' . $project['url'] . '"';
+				$marker .= ' class="marker';
+				if(intval($project['coord_x']) < 10) {
+					$marker .= ' marker-left';
+				}
+				if(intval($project['coord_x']) > 90) {
+					$marker .= ' marker-right';
+				}
+				$marker .= '" id="marker' . ($key+1) . '"';
+				$marker .= 'style="bottom: ' . (100-$project['coord_y']) . '%; left: ' . $project['coord_x'] . '%;">';
+				$marker .= '<span class="text">' . $project['tile_title'] . '</span>';
+				$marker .= '</a>';
+				echo $marker;
 			endif;
 		endforeach;
 		?>
