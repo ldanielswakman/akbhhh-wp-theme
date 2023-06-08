@@ -57,14 +57,14 @@
 			">
 
 			<div class="title" id="intro">
-				<? $frontpage_data = simple_fields_fieldgroup("front_page_data", get_the_id()) ?>
+				<?php $frontpage_data = simple_fields_fieldgroup("front_page_data", get_the_id()) ?>
 				<div class="tagline"><?= $frontpage_data['tilemap_tagline'] ?></div>
 				<div class="descr"><?= $frontpage_data['tilemap_descr'] ?></div>
 			</div>
 
 			<?php foreach($tile_data as $key => $tile) : ?>
 				<?= $tile['a'] ?>
-			<? endforeach ?>
+			<?php endforeach ?>
 
 		</div>
 	</section>
